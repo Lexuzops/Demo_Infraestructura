@@ -37,7 +37,7 @@ jobs:
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.projectKey=lexuzops/Demo_Infraestructura
+            -Dsonar.projectKey=lexuzops_Demo_Infraestructura
             -Dsonar.organization=lexuzops
             -Dsonar.sources=miapp/app.py
             -Dsonar.python.coverage.reportPaths=coverage.xml

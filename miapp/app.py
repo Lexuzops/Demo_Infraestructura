@@ -3,11 +3,8 @@ import uuid
 from flask import Flask, render_template, request, redirect, url_for, flash
 import boto3
 from botocore.exceptions import ClientError
-from flask_wtf import CSRFProtect
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "secret"  # requirido para CSRF
-csrf = CSRFProtect(app)
 
 # Configuración DynamoDB (usa variables de entorno o rol de IAM en AWS)
 AWS_REGION = os.getenv("AWS_REGION", "us-east-1")

@@ -3,9 +3,11 @@ import uuid
 from flask import Flask, render_template, request, redirect, url_for, flash
 import boto3
 from botocore.exceptions import ClientError
+from flask_wtf import CSRFProtect
 
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY", "super-secret-key")
+app.config["SECRET_KEY"] = "secret"  # requirido para CSRF
+csrf = CSRFProtect(app)
 
 # Configuración DynamoDB (usa variables de entorno o rol de IAM en AWS)
 AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
@@ -78,4 +80,4 @@ def delete_item(item_id):
 
 if __name__ == "__main__":
     # Para desarrollo local
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)

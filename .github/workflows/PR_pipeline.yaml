@@ -1,3 +1,4 @@
+# CI pipeline for pull requests to main branch
 name: CI
 
 on:

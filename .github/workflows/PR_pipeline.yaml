@@ -18,7 +18,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install deps
-        run: pip install pytest boto3 flake8 flask flask_wtf coverage
+        run: pip install pytest boto3 flake8 flask coverage
 
       - name: Lint (flake8)
         working-directory: ./miapp

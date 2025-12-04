@@ -19,9 +19,9 @@ jobs:
 
       - name: leer ruta actual
         run: |
-        pwd
-        ls
-        pip --version
+          pwd
+          ls
+          pip --version
       # - name: Install dependencies
       #   run: |
       #     pip install pytest flake8

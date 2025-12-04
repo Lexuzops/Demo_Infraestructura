@@ -3,8 +3,13 @@ import uuid
 from flask import Flask, render_template, request, redirect, url_for, flash
 import boto3
 from botocore.exceptions import ClientError
+import secrets
 
 app = Flask(__name__)
+secret = os.getenv("SECRET_KEY")
+secret = os.getenv("SECRET_KEY") or secrets.token_hex(32)
+app.config["SECRET_KEY"] = secret
+
 
 # Configuración DynamoDB (usa variables de entorno o rol de IAM en AWS)
 AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
@@ -44,11 +49,8 @@ def add_item():
         flash("El nombre es obligatorio", "warning")
         return redirect(url_for("index"))
 
-    item = {
-        "id": str(uuid.uuid4()),
-        "name": name,
-        "description": description or ""
-    }
+    item = {"id": str(uuid.uuid4()), "name": name,
+            "description": description or ""}
 
     try:
         table.put_item(Item=item)

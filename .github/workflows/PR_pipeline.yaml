@@ -18,7 +18,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install deps
-        run: pip install pytest flake8
+        run: pip install pytest boto3
 
       - name: Lint (flake8)
         working-directory: ./miapp

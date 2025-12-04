@@ -18,11 +18,11 @@ jobs:
           python-version: "3.12"
 
       - name: Install deps
-        run: pip install pytest boto3 flake8
+        run: pip install pytest boto3 flake8 flask flask_wtf
 
       - name: Lint (flake8)
         working-directory: ./miapp
-        run: flake8 app.py
+        run: flake8 app.py -v
 
       - name: Tests (pytest)
         run: pytest -q tests

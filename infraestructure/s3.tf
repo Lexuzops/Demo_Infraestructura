@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "zip_bucket_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = [var.deployer_iam]
+      identifiers = [var.deployer_iam,var.deployer_github_role]
     }
 
     actions = [

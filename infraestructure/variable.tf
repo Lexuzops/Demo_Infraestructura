@@ -28,6 +28,10 @@ variable "deployer_iam" {
   type    = string
   default = "arn:aws:iam::024848464519:user/terraform-deploy"
 }
+variable "deployer_github_role" {
+  type    = string
+  default = "arn:aws:iam::024848464519:role/deployment-role-github"
+}
 
 variable "instances" {
   type = map(object({

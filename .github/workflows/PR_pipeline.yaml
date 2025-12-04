@@ -24,9 +24,6 @@ jobs:
         working-directory: ./miapp
         run: flake8 app.py -v
 
-      - name: Tests (pytest)
-        run: pytest -q tests
-
       - name: Tests with coverage
         run: |
           coverage run -m pytest -q tests
@@ -40,10 +37,10 @@ jobs:
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.projectKey=lexuzops/Demo_Infraestructura
-            -Dsonar.organization=lexuzops
-            -Dsonar.sources=/miapp/app.py
-
+            -Dsonar.projectKey=tu_org_tu_proyecto
+            -Dsonar.organization=tu_org
+            -Dsonar.sources=miapp
+            -Dsonar.python.coverage.reportPaths=coverage.xml
 
       
       

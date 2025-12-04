@@ -38,7 +38,7 @@ jobs:
           projectBaseDir: .
           args: >
             -Dsonar.projectKey=demo-infraestructure_tests-sonar
-            -Dsonar.organization=Demo_Infraestructura
+            -Dsonar.organization=demo-infraestructure
             -Dsonar.sources=miapp/app.py
             -Dsonar.python.coverage.reportPaths=coverage.xml
 

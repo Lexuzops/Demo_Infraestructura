@@ -48,10 +48,11 @@ resource "aws_instance" "app_server" {
   vpc_security_group_ids      = [aws_security_group.ec2_sg.id]
   associate_public_ip_address = false
   iam_instance_profile        = aws_iam_instance_profile.ec2_profile.name
+  user_data_replace_on_change = true
 
   user_data = <<-EOF
 #!/bin/bash
-
+ZIP_HASH="${data.aws_s3_object.zip_info.etag}"
 sudo yum update -y
 sudo yum install nginx unzip -y
 sudo yum install python3-pip -y
@@ -85,8 +86,11 @@ EOF
     create_before_destroy = true
   }
 
-  depends_on = [aws_s3_object.zip_file]
-  
+  depends_on = [
+    aws_s3_object.zip_file,
+    data.aws_s3_object.zip_info
+  ]
+
   tags = {
     Name = each.value.name
   }

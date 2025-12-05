@@ -69,3 +69,8 @@ resource "aws_s3_bucket_policy" "zip_bucket_policy" {
   bucket = aws_s3_bucket.zip_bucket.id
   policy = data.aws_iam_policy_document.zip_bucket_policy.json
 }
+
+data "aws_s3_object" "zip_info" {
+  bucket = aws_s3_bucket.zip_bucket.bucket
+  key    = "miapp.zip"
+}

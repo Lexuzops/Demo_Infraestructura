@@ -1,4 +1,3 @@
-
 # Supuestos de Infraestructura
 
 Este documento describe los **supuestos de diseño de la infraestructura** necesaria para desplegar una aplicación **monolítica**, desarrollada de forma que **no puede segmentarse fácilmente en microservicios**.
@@ -25,6 +24,9 @@ El objetivo es dejar claro **por qué** se eligió esta arquitectura, **qué com
   - El equipo de desarrollo **no ha realizado** una separación por dominios/módulos que permita microservicios.
   - El tiempo/esfuerzo de refactorización a microservicios **no es viable** para el alcance de este proyecto.
   - El tráfico esperado es moderado/medio, pero con posibilidad de escalar añadiendo más instancias.
+
+## Diagrama de infraestructura AWS
+![Diagrama de arquitectura](diagrama/diagrama.png)
 
 ## Infraestructura Terraform
 
@@ -105,7 +107,16 @@ El archivo `terraform.tfstate` puede contener información sensible (como IDs de
 - Habilitar versionado para recuperar state anterior si hay .
 - Auditar accesos al bucket S3 y tabla DynamoDB con CloudTrail.
 
-## Decisiones aceleradas y exclusiones de buenas prácticas
+## Estrategia de pruebas y calidad
+
+- **Pytest (unitarias):** cubre las rutas principales de Flask y la integración básica con DynamoDB mockeado. Se usan stubs para la tabla y `render_template` para evitar dependencias externas. Ejecuta: `PYTHONPATH=. pytest -q tests`.
+- **Cobertura:** se genera con `coverage run -m pytest` y se exporta a `coverage.xml` para reportarlo en SonarCloud (`sonar.python.coverage.reportPaths=coverage.xml`).
+- **Flake8 (lint):** valida estilo y reglas básicas de calidad. Fallos en Flake8 detienen el pipeline. Ejecuta: `flake8 miapp/app.py`.
+- **SonarCloud:** analiza código, duplicados y vulnerabilidades. Se desactiva “Automatic Analysis” y se ejecuta vía CI con el scanner usando `SONAR_HOST_URL=https://sonarcloud.io`, `SONAR_TOKEN` y la clave del proyecto.
+- **CI (GitHub Actions):** pipeline `PR_pipeline.yaml` corre Flake8 y Pytest; si fallan, el job se marca como failed y no se ejecuta Sonar. El pipeline de deploy ejecuta Terraform (`init/plan/apply`) sobre la carpeta `infraestructure` con variables remotas.
+- **Buenas prácticas:** usar `SECRET_KEY` desde entorno (no hardcode), aislar dependencias externas en tests, y mantener linters y tests como gate antes de aplicar infraestructura o desplegar.
+
+## Decisiones aceleradas debido a dificultades encontradas y exclusiones de buenas prácticas
 
 - El desarrollo de la aplicación se realizó en **muy poco tiempo**, priorizando que el sistema funcionara “rápido” antes que “bien”.
 - Debido a esta limitante, y dado que el equipo destinó la mayor parte del esfuerzo al **diseño, despliegue de infraestructura y la construcción del pipeline CI/CD**, **no se aplican buenas prácticas de despliegue de software**, tales como:

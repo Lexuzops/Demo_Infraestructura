@@ -26,6 +26,7 @@ El objetivo es dejar claro **por qué** se eligió esta arquitectura, **qué com
   - El tráfico esperado es moderado/medio, pero con posibilidad de escalar añadiendo más instancias.
 
 ## Diagrama de infraestructura AWS
+
 ![Diagrama de arquitectura](diagrama/diagrama.png)
 
 ## Infraestructura Terraform
@@ -104,7 +105,7 @@ El archivo `terraform.tfstate` puede contener información sensible (como IDs de
 - El bucket S3 debe tener políticas estrictas de acceso (solo usuarios y roles autorizados).
 - Bloquear acceso público al bucket S3
 - Habilitar el cifrado en reposo (S3 y DynamoDB).
-- Habilitar versionado para recuperar state anterior si hay .
+- Habilitar versionado para recuperar state anterior si hay.
 - Auditar accesos al bucket S3 y tabla DynamoDB con CloudTrail.
 
 ## Estrategia de pruebas y calidad

@@ -18,7 +18,7 @@ jobs:
 
       - name: Create app package
         run: |      
-          zip -j miapp.zip miapp/*
+          zip -r miapp.zip miapp
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3

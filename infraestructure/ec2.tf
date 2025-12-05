@@ -81,7 +81,12 @@ echo "location / {
 sudo nginx -t
 sudo systemctl reload nginx
 EOF
+  lifecycle {
+    create_before_destroy = true
+  }
 
+  depends_on = [aws_s3_object.zip_file]
+  
   tags = {
     Name = each.value.name
   }

@@ -73,4 +73,6 @@ resource "aws_s3_bucket_policy" "zip_bucket_policy" {
 data "aws_s3_object" "zip_info" {
   bucket = aws_s3_bucket.zip_bucket.bucket
   key    = "miapp.zip"
+
+  depends_on = [aws_s3_object.zip_file]
 }

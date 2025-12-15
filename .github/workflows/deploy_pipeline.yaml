@@ -31,7 +31,9 @@ jobs:
 
       - name: Terraform init
         working-directory: infraestructure
-        run: terraform init -input=false
+        run: |
+         cd infraestructure
+         terraform init -input=false
       
       - name: Terraform plan
         working-directory: infraestructure

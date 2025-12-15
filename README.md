@@ -108,7 +108,7 @@ El archivo `terraform.tfstate` puede contener información sensible (como IDs de
 - Habilitar versionado para recuperar state anterior si hay.
 - Auditar accesos al bucket S3 y tabla DynamoDB con CloudTrail.
 
-## Estrategia de pruebas y calidad
+## Estrategia de pruebas y calidad 
 
 - **Pytest (unitarias):** cubre las rutas principales de Flask y la integración básica con DynamoDB mockeado. Se usan stubs para la tabla y `render_template` para evitar dependencias externas. Ejecuta: `PYTHONPATH=. pytest -q tests`.
 - **Cobertura:** se genera con `coverage run -m pytest` y se exporta a `coverage.xml` para reportarlo en SonarCloud (`sonar.python.coverage.reportPaths=coverage.xml`).
